@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xu.nohotel.dao.OrderDao">
+    <resultMap id="BaseResultMap" type="com.xu.nohotel.domain.Order">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="days_num" jdbcType="INTEGER" property="daysNum"/>
+        <result column="room_id" jdbcType="INTEGER" property="roomId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="check_in" jdbcType="TIMESTAMP" property="checkIn"/>
+        <result column="room_num" jdbcType="CHAR" property="roomNum"/>
+        <result column="total_price" jdbcType="DOUBLE" property="totalPrice"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="face_token" jdbcType="VARCHAR" property="faceToken"/>
+        <result column="id_num" jdbcType="VARCHAR" property="idNum"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        select id,days_num,room_id,user_id,check_in,room_num,total_price,state,create_time,note,face_token,id_num,title
+    </sql>
+
+    <insert id="insert" parameterType="com.xu.nohotel.domain.Order">
+        insert into nohotel.order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="daysNum != null">
+                days_num,
+            </if>
+            <if test="roomId != null">
+                room_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="roomNum != null">
+                room_num,
+            </if>
+            <if test="totalPrice != null">
+                total_price,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            create_time,
+            <if test="note != null">
+                note,
+            </if>
+            <if test="faceToken != null">
+                face_token,
+            </if>
+            <if test="idNum != null">
+                id_num,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="daysNum != null">
+                #{daysNum},
+            </if>
+            <if test="roomId != null">
+                #{roomId},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="roomNum != null">
+                #{roomNum},
+            </if>
+            <if test="totalPrice != null">
+                #{totalPrice},
+            </if>
+            <if test="state != null">
+                #{state},
+            </if>
+            now(),
+            <if test="note != null">
+                #{note},
+            </if>
+            <if test="faceToken != null">
+                #{faceToken},
+            </if>
+            <if test="idNum != null">
+                #{idNum},
+            </if>
+            <if test="title != null">
+                #{title},
+            </if>
+        </trim>
+    </insert>
+
+    
+    <select id="findOrderByTitle" resultMap="BaseResultMap" parameterType="java.lang.String">
+        <include refid="Base_Column_List"/>
+        from nohotel.order
+        where title = #{title}
+    </select>
+
+    <select id="findAllOrderByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        <include refid="Base_Column_List"/>
+        from nohotel.order
+        where user_id = #{userId}
+    </select>
+
+
+</mapper>

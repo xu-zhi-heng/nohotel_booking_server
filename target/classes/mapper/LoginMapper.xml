@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xu.nohotel.dao.LoginDao">
+    <resultMap id="BaseResultMap" type="com.xu.nohotel.domain.Login">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="phone_num" jdbcType="CHAR" property="phoneNum"/>
+        <result column="code" jdbcType="CHAR" property="code"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        select id,phone_num,code,time
+    </sql>
+
+    <insert id="insert" parameterType="com.xu.nohotel.domain.Login">
+        insert into login
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="phoneNum != null">
+                phone_num,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="phoneNum != null">
+                phoneNum,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            now()
+        </trim>
+    </insert>
+
+    
+    <select id="selectByPhoneNum" resultMap="BaseResultMap" parameterType="java.lang.String">
+        <include refid="Base_Column_List"/>
+        from login
+        where phone_num = #{phoneNum}
+    </select>
+
+
+    <update id="update" parameterType="Login">
+        update login
+        <set>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            time = now()
+        </set>
+        where phone_num = #{phoneNum}
+    </update>
+    
+    
+    
+</mapper>

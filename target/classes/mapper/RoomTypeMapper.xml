@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xu.nohotel.dao.RoomTypeDao">
+    <resultMap id="BaseResultMap" type="com.xu.nohotel.domain.RoomType">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="type_name" jdbcType="CHAR" property="typeName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        select id,type,price,type_name
+    </sql>
+
+    <select id="getAllRoomType" resultMap="BaseResultMap">
+        <include refid="Base_Column_List"/>
+        from room_type
+    </select>
+
+    <select id="getRoomTypeId" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select type
+        from room_type
+        where type_name = #{typeName}
+    </select>
+
+    <select id="getRoomTypeName" resultType="java.lang.String" parameterType="java.lang.Integer">
+        select type_name
+        from room_type
+        where type = #{type}
+    </select>
+</mapper>

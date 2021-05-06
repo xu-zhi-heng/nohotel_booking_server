@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xu.nohotel.dao.RoomInfoDao">
+    <resultMap id="BaseResultMap" type="com.xu.nohotel.domain.RoomInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="size" jdbcType="VARCHAR" property="size"/>
+        <result column="people" jdbcType="INTEGER" property="people"/>
+        <result column="isSmoke" jdbcType="INTEGER" property="isSmoke"/>
+        <result column="isFood" jdbcType="INTEGER" property="isFood"/>
+        <result column="bed" jdbcType="VARCHAR" property="bed"/>
+        <result column="device" jdbcType="VARCHAR" property="device"/>
+        <result column="bath" jdbcType="VARCHAR" property="bath"/>
+        <result column="room_num" jdbcType="VARCHAR" property="roomNum"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        select id,size,people,isSmoke,isFood,bed,device,bath,room_num
+    </sql>
+
+    <select id="getRoomInfoById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        <include refid="Base_Column_List"/>
+        from room_info
+        where id = #{id}
+    </select>
+
+    <select id="getRoomInfoByRoomNum" resultMap="BaseResultMap" parameterType="java.lang.String">
+        <include refid="Base_Column_List"/>
+        from room_info
+        where room_num = #{roomNum}
+    </select>
+</mapper>
